@@ -6,4 +6,6 @@ About This repo contain some solutions and exercises for a module i am now takin
 
 ![Sample Image](assets/html-firsr-exercise-output.png)
 
-<!-- ![](assets/html-first-exercise-output.png) -->
+# Output for Quiz 1
+
+![](assets/quiz1.png)
