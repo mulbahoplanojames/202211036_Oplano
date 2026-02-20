@@ -5,3 +5,5 @@ About This repo contain some solutions and exercises for a module i am now takin
 # Output for the First HTML Exercise
 
 ![Sample Image](assets/html-firsr-exercise-output.png)
+
+<!-- ![](assets/html-first-exercise-output.png) -->

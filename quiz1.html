@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+      }
+      main {
+        flex: 1;
+      }
+      header {
+        background: #000;
+        padding: 2% 4%;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      menu {
+        display: inline-flex;
+        gap: 60px;
+      }
+
+      menu a {
+        text-decoration: none;
+        color: white;
+      }
+
+      #hero {
+        display: flex;
+        padding: 5% 3%;
+        gap: 10px;
+      }
+
+      .hero_text_wripper {
+        width: 45%;
+      }
+      .hero_text_wripper h1 {
+        font-size: 5rem;
+        padding-bottom: 0.5rem;
+      }
+      .hero_text_wripper button {
+        padding: 0.5rem 2rem;
+        background-color: #000;
+        color: white;
+        border: 2px solid transparent;
+        margin-top: 1rem;
+      }
+      .hero_image {
+        width: 45%;
+        height: 16rem;
+        background: #000;
+        overflow: hidden;
+      }
+      .hero_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 5% 4%;
+        background: #000;
+        color: white;
+      }
+      footer h2 {
+        padding-bottom: 1rem;
+      }
+
+      table {
+        width: 70%;
+        margin: 0px auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 2px solid black;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #000;
+        color: white;
+      }
+      .gallery h1 {
+        font-size: 2rem;
+        padding: 1rem 0px 0.5rem 0px;
+        text-align: center;
+        padding: 2rem 0px 0.5rem 0px;
+      }
+      .gallery_wripper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .gallery_wripper img {
+        width: 25%;
+        height: 14rem;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- header section  -->
+
+    <header>
+      <h3>Quiz 1</h3>
+      <menu>
+        <a href="#">Home</a>
+        <a href="#">Technology</a>
+        <a href="#">Solutions</a>
+        <a href="#">About Us</a>
+        <a href="#">Team</a>
+      </menu>
+    </header>
+
+    <!-- main content section -->
+    <main>
+      <!-- hero -->
+      <section id="hero">
+        <div class="hero_text_wripper">
+          <h1>This is our second quiz</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            hic tempora dolorum, libero ea id magni aut inventore, est rerum
+            quidem quos omnis atque consequatur praesentium nobis corporis
+            eveniet sed!
+          </p>
+          <button>Join Us</button>
+        </div>
+        <div class="hero_image">
+          <img src="/assets/Miami _ Paul Landry Co_.jpg" alt="" />
+        </div>
+      </section>
+
+      <section id="table_section">
+        <table>
+          <tr>
+            <th>Services</th>
+            <th>Cost RWF</th>
+            <th>Revenue</th>
+          </tr>
+
+          <tr>
+            <td>Services</td>
+            <td>1000,000</td>
+            <td>2000,000</td>
+          </tr>
+
+          <tr>
+            <td>Cyber Security</td>
+            <td>2000,000</td>
+            <td>4000,000</td>
+          </tr>
+
+          <tr>
+            <td>IT</td>
+            <td>3000,000</td>
+            <td>5000,000</td>
+          </tr>
+        </table>
+      </section>
+
+      <div class="gallery">
+        <h1>Byte Forging</h1>
+        <div class="gallery_wripper">
+          <img src="./assets/flower.jpg" alt="" />
+          <img src="./assets/flower.jpg" alt="" />
+          <img src="./assets/flower.jpg" alt="" />
+        </div>
+      </div>
+    </main>
+
+    <!-- footer section  -->
+    <footer>
+      <div class="">
+        <h2>Our Services</h2>
+        <ol>
+          <li>Software Development</li>
+          <li>IT Support</li>
+          <li>Cyber Security Consultation</li>
+        </ol>
+      </div>
+
+      <div class="">
+        <h2>Our Contact</h2>
+        <ul>
+          <li>Oplano</li>
+          <li>Junior</li>
+          <li>Deng</li>
+        </ul>
+      </div>
+
+      <div class="">
+        <h2>Our Address</h2>
+        <ol>
+          <li>Kigali Rwanda</li>
+          <li>KG 27485</li>
+        </ol>
+      </div>
+    </footer>
+  </body>
+</html>
