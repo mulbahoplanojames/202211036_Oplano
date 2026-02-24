@@ -1,5 +1,5 @@
 {
-  "name": "exercise-01",
+  "name": "202211036_Oplano",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
   }
 }
