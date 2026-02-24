@@ -1,0 +1,8 @@
+[build]
+  base = "exercise-01"
+  publish = "."
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
