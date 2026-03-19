@@ -22,7 +22,13 @@ class Database {
             $this->conn->exec("set names utf8");
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $exception) {
-            echo "Connection error: " . $exception->getMessage();
+            // Log the error for debugging
+            error_log("Database connection failed: " . $exception->getMessage());
+            echo json_encode(array(
+                "status" => "error", 
+                "message" => "Database connection failed: " . $exception->getMessage()
+            ));
+            return null;
         }
 
         return $this->conn;

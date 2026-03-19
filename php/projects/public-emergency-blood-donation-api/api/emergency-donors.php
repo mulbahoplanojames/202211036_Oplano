@@ -4,10 +4,10 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once '../config/database.php';
+require_once '../config/db.php';
 
 $database = new Database();
-$db = $database->getConnection();
+$db = $database->getMysqliConnection();
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -32,15 +32,16 @@ function handleGet($db) {
         $stmt = $db->prepare($query);
         $stmt->execute();
         
+        $result = $stmt->get_result();
         $donors = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetch_assoc()) {
             $donors[] = $row;
         }
         
         http_response_code(200);
         echo json_encode(array("status" => "success", "data" => $donors));
         
-    } catch(PDOException $exception) {
+    } catch(Exception $exception) {
         http_response_code(500);
         echo json_encode(array("status" => "error", "message" => "Database error: " . $exception->getMessage()));
     }
