@@ -5,6 +5,11 @@
 
 require_once '../includes/functions.php';
 
+// Initialize database connection
+require_once '../config/db.php';
+$db = new Database();
+$db->getConnection();
+
 // Check if user is admin
 if (!isLoggedIn() || !isAdmin()) {
     redirect('../login.php');
@@ -100,21 +105,35 @@ $users_stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $users_stmt->execute();
 $users = $users_stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
 // Get user statistics
-$total_students_query = "SELECT COUNT(*) as total FROM users WHERE role = 'student'";
-$total_students_stmt = $db->prepare($total_students_query);
-$total_students_stmt->execute();
-$total_students = $total_students_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+try {
+    $total_students_query = "SELECT COUNT(*) as total FROM users WHERE role = 'student'";
+    $total_students_stmt = $db->prepare($total_students_query);
+    $total_students_stmt->execute();
+    $total_students = $total_students_stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+} catch (Exception $e) {
+    $total_students = 0;
+}
 
-$total_admins_query = "SELECT COUNT(*) as total FROM users WHERE role = 'admin'";
-$total_admins_stmt = $db->prepare($total_admins_query);
-$total_admins_stmt->execute();
-$total_admins = $total_admins_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+try {
+    $total_admins_query = "SELECT COUNT(*) as total FROM users WHERE role = 'admin'";
+    $total_admins_stmt = $db->prepare($total_admins_query);
+    $total_admins_stmt->execute();
+    $total_admins = $total_admins_stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+} catch (Exception $e) {
+    $total_admins = 0;
+}
 
-$recent_users_query = "SELECT * FROM users ORDER BY created_at DESC LIMIT 5";
-$recent_users_stmt = $db->prepare($recent_users_query);
-$recent_users_stmt->execute();
-$recent_users = $recent_users_stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+    $recent_users_query = "SELECT * FROM users ORDER BY created_at DESC LIMIT 5";
+    $recent_users_stmt = $db->prepare($recent_users_query);
+    $recent_users_stmt->execute();
+    $recent_users = $recent_users_stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    $recent_users = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -371,20 +390,7 @@ $recent_users = $recent_users_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p style="color: #666;">Manage platform users and their roles</p>
             </div>
 
-            <!-- Display Messages -->
-            <?php if (isset($_SESSION['success'])): ?>
-                <div class="alert alert-success">
-                    <?= htmlspecialchars($_SESSION['success']); ?>
-                </div>
-                <?php unset($_SESSION['success']); ?>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-error">
-                    <?= htmlspecialchars($_SESSION['error']); ?>
-                </div>
-                <?php unset($_SESSION['error']); ?>
-            <?php endif; ?>
+         
 
             <!-- Statistics Cards -->
             <div class="stats-grid">
@@ -441,36 +447,36 @@ $recent_users = $recent_users_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td>
                                             <div>
                                                 <div style="font-weight: 600; color: #333;">
-                                                    <?= htmlspecialchars($user['full_name'] ?: $user['username']); ?>
+                                                    <?= htmlspecialchars($user['full_name'] ?? $user['username'] ?? 'Unknown'); ?>
                                                 </div>
                                                 <div style="color: #666; font-size: 0.9rem;">
-                                                    @<?= htmlspecialchars($user['username']); ?>
+                                                    @<?= htmlspecialchars($user['username'] ?? 'unknown'); ?>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><?= htmlspecialchars($user['email']); ?></td>
+                                        <td><?= htmlspecialchars($user['email'] ?? 'No email'); ?></td>
                                         <td>
-                                            <span class="role-badge role-<?= $user['role']; ?>">
-                                                <?= ucfirst($user['role']); ?>
+                                            <span class="role-badge role-<?= $user['role'] ?? 'unknown'; ?>">
+                                                <?= ucfirst($user['role'] ?? 'unknown'); ?>
                                             </span>
                                         </td>
-                                        <td><?= formatDate($user['created_at']); ?></td>
+                                        <td><?= isset($user['created_at']) ? formatDate($user['created_at']) : 'N/A'; ?></td>
                                         <td>
                                             <div class="action-buttons">
-                                                <?php if ($user['id'] != $_SESSION['user_id']): ?>
+                                                <?php if (($user['id'] ?? 0) != $_SESSION['user_id']): ?>
                                                     <form method="POST" style="display: inline;">
                                                         <input type="hidden" name="action" value="toggle_status">
-                                                        <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
+                                                        <input type="hidden" name="user_id" value="<?= $user['id'] ?? ''; ?>">
                                                         <input type="hidden" name="csrf_token" value="<?= generateCSRFToken(); ?>">
                                                         <button type="submit" class="btn-sm btn-toggle" 
                                                                 onclick="return confirm('Are you sure you want to change this user\'s role?')">
-                                                            <?= $user['role'] === 'admin' ? 'Make Student' : 'Make Admin'; ?>
+                                                            <?= ($user['role'] ?? 'student') === 'admin' ? 'Make Student' : 'Make Admin'; ?>
                                                         </button>
                                                     </form>
-                                                    <?php if ($user['role'] !== 'admin'): ?>
+                                                    <?php if (($user['role'] ?? 'student') !== 'admin'): ?>
                                                         <form method="POST" style="display: inline;">
                                                             <input type="hidden" name="action" value="delete_user">
-                                                            <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
+                                                            <input type="hidden" name="user_id" value="<?= $user['id'] ?? ''; ?>">
                                                             <input type="hidden" name="csrf_token" value="<?= generateCSRFToken(); ?>">
                                                             <button type="submit" class="btn-sm btn-delete" 
                                                                     onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.')">
@@ -516,10 +522,10 @@ $recent_users = $recent_users_stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($recent_users as $user): ?>
                         <div class="user-item">
                             <div class="user-info">
-                                <div class="user-name"><?= htmlspecialchars($user['full_name'] ?: $user['username']); ?></div>
-                                <div class="user-email"><?= htmlspecialchars($user['email']); ?></div>
+                                <div class="user-name"><?= htmlspecialchars($user['full_name'] ?? $user['username'] ?? 'Unknown'); ?></div>
+                                <div class="user-email"><?= htmlspecialchars($user['email'] ?? 'No email'); ?></div>
                             </div>
-                            <div class="user-date"><?= formatDate($user['created_at']); ?></div>
+                            <div class="user-date"><?= isset($user['created_at']) ? formatDate($user['created_at']) : 'N/A'; ?></div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

@@ -24,6 +24,7 @@ require_once __DIR__ . '/env_loader.php';
 class MysqliStatementWrapper {
     private $stmt;
     private $params = [];
+    private $param_types = [];
     private $param_order = [];
     
     public function __construct($stmt) {
@@ -32,6 +33,7 @@ class MysqliStatementWrapper {
     
     public function bindValue($param, $value, $type = null) {
         $this->params[$param] = $value;
+        $this->param_types[$param] = $type;
         if (!in_array($param, $this->param_order)) {
             $this->param_order[] = $param;
         }
@@ -39,6 +41,7 @@ class MysqliStatementWrapper {
     
     public function bindParam($param, &$var, $type = null) {
         $this->params[$param] = &$var;
+        $this->param_types[$param] = $type;
         if (!in_array($param, $this->param_order)) {
             $this->param_order[] = $param;
         }
@@ -46,9 +49,15 @@ class MysqliStatementWrapper {
     
     public function execute() {
         if (!empty($this->params)) {
-            $types = str_repeat('s', count($this->params));
+            $types = '';
             $values = [];
             foreach ($this->param_order as $param) {
+                $type = $this->param_types[$param] ?? null;
+                if ($type === PDO::PARAM_INT || $type === 'i') {
+                    $types .= 'i';
+                } else {
+                    $types .= 's';
+                }
                 $values[] = &$this->params[$param];
             }
             $this->stmt->bind_param($types, ...$values);
@@ -80,20 +89,8 @@ class MysqliStatementWrapper {
     }
     
     public function fetchAll($style = MYSQLI_ASSOC) {
-        // Handle PDO::FETCH_COLUMN case
-        if ($style === 7 || $style === 'PDO::FETCH_COLUMN') {
-            $result = $this->stmt->get_result();
-            $column = [];
-            while ($row = $result->fetch_row()) {
-                $column[] = $row[0];
-            }
-            return $column;
-        }
-        // Handle PDO::FETCH_ASSOC case
-        if ($style === MYSQLI_ASSOC || $style === 'PDO::FETCH_ASSOC' || $style === null) {
-            return $this->stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        }
-        return $this->stmt->get_result()->fetch_all($style);
+        // For this application, always return associative arrays
+        return $this->stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 }
 

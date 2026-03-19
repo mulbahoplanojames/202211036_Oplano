@@ -149,12 +149,15 @@ $csrf_token = generateCSRFToken();
             font-size: var(--text-4xl);
             margin-bottom: var(--space-2);
             font-weight: var(--font-bold);
+            color: white;
         }
 
         .admin-header p {
             font-size: var(--text-xl);
             opacity: 0.9;
             margin: 0;
+            color: white;
+
         }
 
         .main-content {
@@ -169,6 +172,7 @@ $csrf_token = generateCSRFToken();
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--gray-200);
+            overflow: hidden;
         }
 
         .form-header {
@@ -196,6 +200,7 @@ $csrf_token = generateCSRFToken();
             grid-template-columns: 1fr 1fr;
             gap: var(--space-6);
             margin-bottom: var(--space-8);
+            width: 100%;
         }
 
         .form-group {
@@ -221,6 +226,8 @@ $csrf_token = generateCSRFToken();
         .form-group input,
         .form-group select,
         .form-group textarea {
+            width: 100%;
+            max-width: 100%;
             padding: var(--space-3) var(--space-4);
             border: 2px solid var(--gray-200);
             border-radius: var(--radius-lg);
@@ -228,6 +235,7 @@ $csrf_token = generateCSRFToken();
             font-family: var(--font-family-primary);
             transition: all var(--transition-normal);
             background-color: var(--white);
+            box-sizing: border-box;
         }
 
         .form-group input:focus,
@@ -442,6 +450,12 @@ $csrf_token = generateCSRFToken();
         @media (max-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+
+            .form-container {
+                padding: var(--space-6);
+                margin: var(--space-4);
             }
 
             .admin-header h1 {
@@ -460,6 +474,12 @@ $csrf_token = generateCSRFToken();
 
             .form-actions {
                 flex-direction: column;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: var(--text-sm);
             }
         }
     </style>

@@ -90,13 +90,13 @@ foreach ($params as $key => $value) {
     $stmt->bindValue($key, $value);
 }
 $stmt->execute();
-$videos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$videos = $stmt->fetchAll(MYSQLI_ASSOC);
 
 // Get all courses for filter dropdown
 $course_query = "SELECT id, title, programming_language FROM courses WHERE is_active = 1 ORDER BY title";
 $course_stmt = $db->prepare($course_query);
 $course_stmt->execute();
-$courses = $course_stmt->fetchAll(PDO::FETCH_ASSOC);
+$courses = $course_stmt->fetchAll(MYSQLI_ASSOC);
 
 // Generate CSRF token
 $csrf_token = generateCSRFToken();
@@ -403,17 +403,21 @@ $csrf_token = generateCSRFToken();
 
         .course-badge {
             display: inline-block;
-            padding: var(--space-2) var(--space-4);
+            padding: var(--space-1) var(--space-3);
             background: var(--primary-accent);
             color: white;
             border-radius: var(--radius-full);
-            font-size: var(--text-sm);
+            font-size: var(--text-xs);
             font-weight: var(--font-semibold);
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .course-badge small {
             opacity: 0.9;
-            font-size: var(--text-xs);
+            font-size: 10px;
             font-weight: var(--font-normal);
         }
 
