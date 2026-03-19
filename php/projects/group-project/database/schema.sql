@@ -110,3 +110,20 @@ INSERT INTO videos (course_id, title, description, youtube_video_id, youtube_url
 (4, 'PHP Full Course for Beginners', 'Complete PHP development tutorial', 'BASzovN0xk8', 'https://www.youtube.com/watch?v=BASzovN0xk8', 'https://img.youtube.com/vi/BASzovN0xk8/default.jpg', 980000, 29000, 1200, 'freeCodeCamp'),
 (5, 'C++ Tutorial for Beginners', 'Learn C++ programming fundamentals', 'vLnPwxZdW4Y', 'https://www.youtube.com/watch?v=vLnPwxZdW4Y', 'https://img.youtube.com/vi/vLnPwxZdW4Y/default.jpg', 2100000, 63000, 2800, 'Programming with Mosh'),
 (5, 'C++ Full Course', 'Complete C++ programming tutorial', '8jLOx1hD4_o', 'https://www.youtube.com/watch?v=8jLOx1hD4_o', 'https://img.youtube.com/vi/8jLOx1hD4_o/default.jpg', 1300000, 39000, 1600, 'freeCodeCamp');
+
+
+UPDATE users SET role = 'admin' WHERE id = 1;
+
+-- Insert sample student users
+INSERT INTO users (username, email, password_hash, full_name, role) VALUES 
+('john_student', 'john@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John Student', 'student'),
+('jane_student', 'jane@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Jane Student', 'student'),
+('mike_student', 'mike@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Mike Student', 'student');
+
+-- Insert sample enrollments
+INSERT INTO enrollments (user_id, course_id, progress_percentage) VALUES 
+(2, 1, 75.50),  -- John enrolled in Python with 75.5% progress
+(3, 2, 45.25),  -- Jane enrolled in Java with 45.25% progress
+(4, 3, 90.00),  -- Mike enrolled in JavaScript with 90% progress
+(2, 3, 30.75),  -- John also enrolled in JavaScript with 30.75% progress
+(3, 1, 60.00);  -- Jane also enrolled in Python with 60% progress

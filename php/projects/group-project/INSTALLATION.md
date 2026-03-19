@@ -58,7 +58,7 @@ SELECT COUNT(*) FROM users;
 
 ### Step 1: Database Configuration
 
-Edit `config/database.php`:
+Edit `config/db.php`:
 
 ```php
 <?php
@@ -184,7 +184,7 @@ error_reporting(E_ALL);
 ### Issue 2: Database Connection Failed
 
 **Cause**: Incorrect database credentials
-**Solution**: Verify `config/database.php` settings:
+**Solution**: Verify `config/db.php` settings:
 
 ```bash
 # Test database connection
@@ -233,7 +233,7 @@ sudo chown www-data:www-data /var/lib/php/sessions
 
 ```bash
 # Protect sensitive files
-<Files "config/database.php">
+<Files "config/db.php">
     Require all denied
 </Files>
 

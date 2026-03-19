@@ -8,11 +8,12 @@
 session_start();
 
 // Include database configuration
-require_once __DIR__ . '/../config/database.php';
+// require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/db.php';
 
 // Create database connection
 $database = new Database();
-$db = $database->getConnection();
+$db = $database;
 
 /**
  * Check if user is logged in
@@ -50,6 +51,11 @@ function sanitize($data) {
  * Format view count
  */
 function formatViews($views) {
+    // Handle null values
+    if ($views === null) {
+        return '0';
+    }
+    
     if ($views >= 1000000) {
         return number_format($views / 1000000, 1) . 'M';
     } elseif ($views >= 1000) {
@@ -63,6 +69,9 @@ function formatViews($views) {
  * Format date
  */
 function formatDate($date) {
+    if (!$date) {
+        return 'N/A';
+    }
     return date('M j, Y', strtotime($date));
 }
 

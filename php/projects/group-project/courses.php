@@ -43,7 +43,8 @@ foreach ($params as $key => $value) {
     $stmt->bindValue($key, $value);
 }
 $stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result = $stmt->get_result();
+$courses = $result->fetch_all(MYSQLI_ASSOC);
 
 // Get favorite status for logged-in users
 if (isLoggedIn()) {

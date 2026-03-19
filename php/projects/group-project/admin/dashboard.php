@@ -14,22 +14,22 @@ if (!isLoggedIn() || !isAdmin()) {
 $total_courses_query = "SELECT COUNT(*) as total FROM courses";
 $total_courses_stmt = $db->prepare($total_courses_query);
 $total_courses_stmt->execute();
-$total_courses = $total_courses_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_courses = $total_courses_stmt->fetch_assoc()['total'];
 
 $total_videos_query = "SELECT COUNT(*) as total FROM videos";
 $total_videos_stmt = $db->prepare($total_videos_query);
 $total_videos_stmt->execute();
-$total_videos = $total_videos_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_videos = $total_videos_stmt->fetch_assoc()['total'];
 
 $total_users_query = "SELECT COUNT(*) as total FROM users";
 $total_users_stmt = $db->prepare($total_users_query);
 $total_users_stmt->execute();
-$total_users = $total_users_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_users = $total_users_stmt->fetch_assoc()['total'];
 
 $total_enrollments_query = "SELECT COUNT(*) as total FROM enrollments";
 $total_enrollments_stmt = $db->prepare($total_enrollments_query);
 $total_enrollments_stmt->execute();
-$total_enrollments = $total_enrollments_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_enrollments = $total_enrollments_stmt->fetch_assoc()['total'];
 
 // Get recent enrollments
 $recent_enrollments_query = "SELECT e.*, u.username, c.title as course_title 
@@ -38,9 +38,52 @@ $recent_enrollments_query = "SELECT e.*, u.username, c.title as course_title
                             JOIN courses c ON e.course_id = c.id 
                             ORDER BY e.enrolled_at DESC 
                             LIMIT 5";
-$recent_enrollments_stmt = $db->prepare($recent_enrollments_query);
-$recent_enrollments_stmt->execute();
-$recent_enrollments = $recent_enrollments_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Debug: Check database connection first
+error_log("Database connection status: " . ($db ? "Connected" : "Not connected"));
+error_log("Recent enrollments query: " . $recent_enrollments_query);
+
+try {
+    $recent_enrollments_stmt = $db->prepare($recent_enrollments_query);
+    error_log("Statement prepared successfully");
+    
+    $result = $recent_enrollments_stmt->execute();
+    error_log("Execute result: " . ($result ? "Success" : "Failed"));
+    
+    // Use the correct fetch method for MySQLi wrapper
+    $recent_enrollments = $recent_enrollments_stmt->fetchAll(MYSQLI_ASSOC);
+    error_log("Recent enrollments count: " . count($recent_enrollments));
+    
+    if (count($recent_enrollments) > 0) {
+        error_log("First enrollment data: " . print_r($recent_enrollments[0], true));
+    } else {
+        error_log("No enrollments found - checking table existence");
+        
+        // Check if enrollments table exists and has data
+        $check_query = "SELECT COUNT(*) as count FROM enrollments";
+        $check_stmt = $db->prepare($check_query);
+        $check_stmt->execute();
+        $check_result = $check_stmt->fetch_assoc();
+        error_log("Total enrollments in database: " . $check_result['count']);
+        
+        // Check users table
+        $users_query = "SELECT COUNT(*) as count FROM users";
+        $users_stmt = $db->prepare($users_query);
+        $users_stmt->execute();
+        $users_result = $users_stmt->fetch_assoc();
+        error_log("Total users in database: " . $users_result['count']);
+        
+        // Check courses table
+        $courses_query = "SELECT COUNT(*) as count FROM courses";
+        $courses_stmt = $db->prepare($courses_query);
+        $courses_stmt->execute();
+        $courses_result = $courses_stmt->fetch_assoc();
+        error_log("Total courses in database: " . $courses_result['count']);
+    }
+} catch (Exception $e) {
+    error_log("Database error in recent enrollments: " . $e->getMessage());
+    $recent_enrollments = [];
+}
 
 // Get popular courses
 $popular_courses_query = "SELECT c.*, COUNT(e.id) as enrollment_count 
@@ -51,7 +94,7 @@ $popular_courses_query = "SELECT c.*, COUNT(e.id) as enrollment_count
                          LIMIT 5";
 $popular_courses_stmt = $db->prepare($popular_courses_query);
 $popular_courses_stmt->execute();
-$popular_courses = $popular_courses_stmt->fetchAll(PDO::FETCH_ASSOC);
+$popular_courses = $popular_courses_stmt->fetchAll(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -279,14 +322,16 @@ $popular_courses = $popular_courses_stmt->fetchAll(PDO::FETCH_ASSOC);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (count($recent_enrollments) > 0): ?>
+                            <?php if (!empty($recent_enrollments) && count($recent_enrollments) > 0): ?>
                                 <?php foreach ($recent_enrollments as $enrollment): ?>
+                                    <?php if (!empty($enrollment['username']) && !empty($enrollment['course_title'])): ?>
                                     <tr>
                                         <td><?= htmlspecialchars($enrollment['username']); ?></td>
                                         <td><?= htmlspecialchars($enrollment['course_title']); ?></td>
-                                        <td><?= formatDate($enrollment['enrolled_at']); ?></td>
-                                        <td><?= number_format($enrollment['progress_percentage'], 1); ?>%</td>
+                                        <td><?= !empty($enrollment['enrolled_at']) ? formatDate($enrollment['enrolled_at']) : 'N/A'; ?></td>
+                                        <td><?= number_format($enrollment['progress_percentage'] ?? 0, 1); ?>%</td>
                                     </tr>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>

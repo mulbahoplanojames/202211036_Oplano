@@ -14,7 +14,8 @@ $query = "SELECT c.*, COUNT(v.id) as video_count
           ORDER BY c.title";
 $stmt = $db->prepare($query);
 $stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result = $stmt->get_result();
+$courses = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -161,7 +162,8 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $total_videos_query = "SELECT COUNT(*) as total FROM videos WHERE is_active = 1";
                     $total_videos_stmt = $db->prepare($total_videos_query);
                     $total_videos_stmt->execute();
-                    $total_videos = $total_videos_stmt->fetch(PDO::FETCH_ASSOC);
+                    $total_videos_result = $total_videos_stmt->get_result();
+                    $total_videos = $total_videos_result->fetch_assoc();
                     ?>
                     <div class="stat-number"><?= $total_videos['total']; ?></div>
                     <div class="stat-label">Curated Videos</div>
@@ -171,7 +173,8 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $total_views_query = "SELECT SUM(views_count) as total FROM videos WHERE is_active = 1";
                     $total_views_stmt = $db->prepare($total_views_query);
                     $total_views_stmt->execute();
-                    $total_views = $total_views_stmt->fetch(PDO::FETCH_ASSOC);
+                    $total_views_result = $total_views_stmt->get_result();
+                    $total_views = $total_views_result->fetch_assoc();
                     ?>
                     <div class="stat-number"><?= formatViews($total_views['total']); ?></div>
                     <div class="stat-label">Total Views</div>

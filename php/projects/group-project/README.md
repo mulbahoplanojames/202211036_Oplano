@@ -5,6 +5,7 @@ A full-stack web application that curates and recommends high-quality programmin
 ## 🚀 Features
 
 ### Core Features
+
 - **Homepage**: Browse programming courses with clean, user-friendly layout
 - **Course Selection**: View curated YouTube tutorials for each programming language
 - **Video Curation**: Only videos with 1M+ views and educational value
@@ -12,6 +13,7 @@ A full-stack web application that curates and recommends high-quality programmin
 - **Database Storage**: MySQL backend for courses, videos, users, and enrollments
 
 ### Admin Dashboard
+
 - **Secure Authentication**: Role-based access control
 - **Course Management**: CRUD operations for programming courses
 - **Video Management**: Add, edit, and delete YouTube tutorials
@@ -19,6 +21,7 @@ A full-stack web application that curates and recommends high-quality programmin
 - **System Analytics**: View platform statistics and metrics
 
 ### Student Dashboard
+
 - **User Registration**: Secure student account creation
 - **Course Enrollment**: Enroll in multiple programming courses
 - **Progress Tracking**: Monitor learning progress across courses
@@ -28,18 +31,21 @@ A full-stack web application that curates and recommends high-quality programmin
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - **HTML5**: Semantic markup structure
 - **CSS3**: Responsive design with modern UI components
 - **JavaScript**: Interactive features and animations
 - **Responsive Design**: Mobile-friendly interface
 
 ### Backend
+
 - **PHP 7+**: Server-side logic and API endpoints
 - **MySQL**: Database management and storage
 - **PDO**: Secure database interactions
 - **Session Management**: User authentication and authorization
 
 ### Security Features
+
 - **CSRF Protection**: Cross-site request forgery prevention
 - **Password Hashing**: Secure password storage with bcrypt
 - **Input Sanitization**: XSS and SQL injection prevention
@@ -52,7 +58,7 @@ group-project/
 ├── database/
 │   └── schema.sql              # Database schema and sample data
 ├── config/
-│   └── database.php           # Database configuration
+│   └── db.php                 # Database configuration
 ├── includes/
 │   └── functions.php          # Common functions and utilities
 ├── admin/
@@ -81,6 +87,7 @@ group-project/
 ## 🗄️ Database Schema
 
 ### Tables
+
 - **users**: User accounts and authentication
 - **courses**: Programming courses information
 - **videos**: YouTube video metadata
@@ -89,7 +96,9 @@ group-project/
 - **video_progress**: Video watching progress
 
 ### Sample Data
+
 The database includes:
+
 - 5 sample programming courses (Python, Java, JavaScript, PHP, C++)
 - 10 curated YouTube tutorials
 - Admin account for testing
@@ -98,6 +107,7 @@ The database includes:
 ## 🚀 Installation
 
 ### Prerequisites
+
 - PHP 7.0 or higher
 - MySQL 5.7 or higher
 - Apache/Nginx web server
@@ -106,13 +116,14 @@ The database includes:
 ### Setup Instructions
 
 1. **Database Setup**
+
    ```bash
    # Import the database schema
    mysql -u root -p < database/schema.sql
    ```
 
 2. **Configuration**
-   - Update database credentials in `config/database.php`
+   - Update database credentials in `config/db.php`
    - Ensure proper file permissions for web server
 
 3. **Web Server Configuration**
@@ -125,12 +136,14 @@ The database includes:
    - Register as student or login as admin
 
 ### Default Admin Account
+
 - **Email**: admin@tutorialplatform.com
 - **Password**: admin123
 
 ## 🎯 Usage Guide
 
 ### For Students
+
 1. **Registration**: Create account with email and password
 2. **Browse Courses**: Explore available programming courses
 3. **Enroll**: Join courses to track progress
@@ -138,6 +151,7 @@ The database includes:
 5. **Track Progress**: Monitor learning in student dashboard
 
 ### For Administrators
+
 1. **Login**: Use admin credentials to access dashboard
 2. **Manage Courses**: Add, edit, or deactivate courses
 3. **Curate Videos**: Add high-quality YouTube tutorials
@@ -147,8 +161,9 @@ The database includes:
 ## 🔧 Configuration Options
 
 ### Database Settings
+
 ```php
-// config/database.php
+// config/db.php
 private $host = "localhost";
 private $db_name = "programming_tutorials";
 private $username = "root";
@@ -156,13 +171,16 @@ private $password = "";
 ```
 
 ### YouTube API Integration
+
 The platform is designed to integrate with YouTube API for:
+
 - Automatic video metadata retrieval
 - View count and engagement metrics
 - Channel information
 - Thumbnail images
 
 ### Customization Options
+
 - **Themes**: Modify CSS variables for color schemes
 - **Languages**: Add new programming languages
 - **Filters**: Implement additional search filters
@@ -171,21 +189,25 @@ The platform is designed to integrate with YouTube API for:
 ## 🌟 Key Features Highlight
 
 ### Distraction-Free Learning
+
 - No YouTube recommendations or sidebar distractions
 - Focused course-based learning paths
 - Clean, minimal interface design
 
 ### Quality Curation
+
 - Manual selection of high-quality tutorials
 - Minimum 1M views requirement
 - Educational value assessment
 
 ### Progress Tracking
+
 - Course enrollment management
 - Video watching progress
 - Learning statistics and analytics
 
 ### Responsive Design
+
 - Mobile-friendly interface
 - Tablet and desktop optimization
 - Touch-friendly interactions
@@ -201,6 +223,7 @@ The platform is designed to integrate with YouTube API for:
 ## 🚀 Future Enhancements
 
 ### Planned Features
+
 - **YouTube API Integration**: Real-time video data
 - **Advanced Search**: Full-text search capabilities
 - **Ratings System**: User ratings and reviews
@@ -210,6 +233,7 @@ The platform is designed to integrate with YouTube API for:
 - **Certificates**: Course completion certificates
 
 ### API Endpoints
+
 - RESTful API for mobile applications
 - Webhook integrations for notifications
 - Third-party learning management system integration
@@ -217,6 +241,7 @@ The platform is designed to integrate with YouTube API for:
 ## 📞 Support
 
 For issues, questions, or contributions:
+
 - Create GitHub issues for bug reports
 - Submit pull requests for feature enhancements
 - Contact development team for support
