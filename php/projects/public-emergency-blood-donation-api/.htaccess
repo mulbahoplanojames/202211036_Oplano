@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# API endpoints
+RewriteRule ^api/donors$ api/donors.php [L,QSA]
+RewriteRule ^api/emergency-donors$ api/emergency-donors.php [L,QSA]
+
+# Handle preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]

@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "blood-donation-api",
+		"name": "Blood Donation API",
+		"description": "Public Emergency Blood Donation API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": ["{{base_url}}"],
+					"path": [""]
+				},
+				"description": "Get API information and available endpoints"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Donors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/donors",
+					"host": ["{{base_url}}"],
+					"path": ["api", "donors"]
+				},
+				"description": "Retrieve all registered donors"
+			},
+			"response": []
+		},
+		{
+			"name": "Register New Donor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test User\",\n    \"blood_type\": \"O+\",\n    \"city\": \"Kigali\",\n    \"phone\": \"+250788999999\",\n    \"last_donation_date\": \"2024-01-15\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/donors",
+					"host": ["{{base_url}}"],
+					"path": ["api", "donors"]
+				},
+				"description": "Register a new blood donor"
+			},
+			"response": []
+		},
+		{
+			"name": "Search Donors by Blood Type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/donors?blood_type=O+",
+					"host": ["{{base_url}}"],
+					"path": ["api", "donors"],
+					"query": [
+						{
+							"key": "blood_type",
+							"value": "O+"
+						}
+					]
+				},
+				"description": "Search donors by specific blood type"
+			},
+			"response": []
+		},
+		{
+			"name": "Search Donors by City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/donors?city=Kigali",
+					"host": ["{{base_url}}"],
+					"path": ["api", "donors"],
+					"query": [
+						{
+							"key": "city",
+							"value": "Kigali"
+						}
+					]
+				},
+				"description": "Search donors by city"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Emergency Donors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/emergency-donors",
+					"host": ["{{base_url}}"],
+					"path": ["api", "emergency-donors"]
+				},
+				"description": "Get donors who are immediately available for donation"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Donor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/donors?id=1",
+					"host": ["{{base_url}}"],
+					"path": ["api", "donors"],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Delete a donor (Admin functionality)"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost",
+			"type": "string"
+		}
+	]
+}
