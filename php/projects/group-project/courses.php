@@ -43,8 +43,7 @@ foreach ($params as $key => $value) {
     $stmt->bindValue($key, $value);
 }
 $stmt->execute();
-$result = $stmt->get_result();
-$courses = $result->fetch_all(MYSQLI_ASSOC);
+$courses = $stmt->fetchAll(MYSQLI_ASSOC);
 
 // Get favorite status for logged-in users
 if (isLoggedIn()) {
@@ -57,13 +56,15 @@ if (isLoggedIn()) {
 $language_query = "SELECT DISTINCT programming_language FROM courses WHERE is_active = 1 ORDER BY programming_language";
 $language_stmt = $db->prepare($language_query);
 $language_stmt->execute();
-$languages = $language_stmt->fetchAll(PDO::FETCH_COLUMN);
+$language_result = $language_stmt->fetchAll(MYSQLI_ASSOC);
+$languages = array_column($language_result, 'programming_language');
 
 // Get course count for stats
 $total_courses_query = "SELECT COUNT(*) as total FROM courses WHERE is_active = 1";
 $total_courses_stmt = $db->prepare($total_courses_query);
 $total_courses_stmt->execute();
-$total_courses = $total_courses_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_courses_result = $total_courses_stmt->fetch();
+$total_courses = $total_courses_result['total'];
 ?>
 
 <!DOCTYPE html>

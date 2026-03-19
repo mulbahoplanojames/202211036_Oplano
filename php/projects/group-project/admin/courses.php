@@ -5,19 +5,21 @@
 
 require_once '../includes/functions.php';
 
-// Check if user is admin
-if (!isLoggedIn() || !isAdmin()) {
-    redirect('../login.php');
-}
+// Public access - no authentication required for viewing courses
+// Admin functions (delete/activate) will still require authentication
 
-// Handle course deletion
+// Handle course deletion (admin only)
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    $course_id = (int)$_GET['delete'];
-    
-    // Verify CSRF token
-    if (!verifyCSRFToken($_GET['csrf_token'])) {
-        $error_message = "Invalid request. Please try again.";
+    // Check if user is admin for deletion
+    if (!isLoggedIn() || !isAdmin()) {
+        $error_message = "Admin access required to delete courses.";
     } else {
+        $course_id = (int)$_GET['delete'];
+        
+        // Verify CSRF token
+        if (!verifyCSRFToken($_GET['csrf_token'])) {
+            $error_message = "Invalid request. Please try again.";
+        } else {
         // Soft delete - set is_active to 0
         $query = "UPDATE courses SET is_active = 0 WHERE id = ?";
         $stmt = $db->prepare($query);
@@ -35,17 +37,22 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         } else {
             $error_message = "Failed to deactivate course.";
         }
+        }
     }
 }
 
-// Handle course activation
+// Handle course activation (admin only)
 if (isset($_GET['activate']) && is_numeric($_GET['activate'])) {
-    $course_id = (int)$_GET['activate'];
-    
-    // Verify CSRF token
-    if (!verifyCSRFToken($_GET['csrf_token'])) {
-        $error_message = "Invalid request. Please try again.";
+    // Check if user is admin for activation
+    if (!isLoggedIn() || !isAdmin()) {
+        $error_message = "Admin access required to activate courses.";
     } else {
+        $course_id = (int)$_GET['activate'];
+        
+        // Verify CSRF token
+        if (!verifyCSRFToken($_GET['csrf_token'])) {
+            $error_message = "Invalid request. Please try again.";
+        } else {
         // Activate - set is_active to 1
         $query = "UPDATE courses SET is_active = 1 WHERE id = ?";
         $stmt = $db->prepare($query);
@@ -62,6 +69,7 @@ if (isset($_GET['activate']) && is_numeric($_GET['activate'])) {
             $success_message = "Course activated successfully.";
         } else {
             $error_message = "Failed to activate course.";
+        }
         }
     }
 }
@@ -292,7 +300,9 @@ $csrf_token = generateCSRFToken();
     <div class="page-header">
         <div class="container">
             <h1 class="page-title">Manage Courses</h1>
-            <a href="add_course.php" class="btn btn-outline-white">Add New Course</a>
+            <?php if (isLoggedIn() && isAdmin()): ?>
+                <a href="add_course.php" class="btn btn-outline-white">Add New Course</a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -357,16 +367,18 @@ $csrf_token = generateCSRFToken();
                                     </span>
                                 </div>
                                 <div class="course-actions">
-                                    <a href="edit_course.php?id=<?= $course['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="../course.php?id=<?= $course['id']; ?>" class="btn btn-outline btn-sm" target="_blank">View Course</a>
                                     <a href="videos.php?course=<?= $course['id']; ?>" class="btn btn-secondary btn-sm">Videos</a>
-                                    <a href="../course.php?id=<?= $course['id']; ?>" class="btn btn-outline btn-sm" target="_blank">View</a>
-                                    <?php if ($course['is_active'] ?? 0): ?>
-                                        <a href="courses.php?delete=<?= $course['id']; ?>&csrf_token=<?= $csrf_token; ?>" 
-                                           class="btn btn-danger btn-sm" 
-                                           onclick="return confirm('Are you sure you want to deactivate this course?')">Deactivate</a>
-                                    <?php else: ?>
-                                        <a href="courses.php?activate=<?= $course['id']; ?>&csrf_token=<?= $csrf_token; ?>" 
-                                           class="btn btn-success btn-sm">Activate</a>
+                                    <?php if (isLoggedIn() && isAdmin()): ?>
+                                        <a href="edit_course.php?id=<?= $course['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                        <?php if ($course['is_active'] ?? 0): ?>
+                                            <a href="courses.php?delete=<?= $course['id']; ?>&csrf_token=<?= $csrf_token; ?>" 
+                                               class="btn btn-danger btn-sm" 
+                                               onclick="return confirm('Are you sure you want to deactivate this course?')">Deactivate</a>
+                                        <?php else: ?>
+                                            <a href="courses.php?activate=<?= $course['id']; ?>&csrf_token=<?= $csrf_token; ?>" 
+                                               class="btn btn-success btn-sm">Activate</a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>
