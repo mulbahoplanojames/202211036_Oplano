@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Navigation Test</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/mobile-menu.js" defer></script>
+    <style>
+      .test-content {
+        padding: 2rem;
+        text-align: center;
+      }
+      .screen-size-indicator {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-size-indicator" id="screenSize"></div>
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="index.php" class="logo">📚 CodeTutorials</a>
+          <button
+            class="mobile-menu-toggle"
+            aria-expanded="false"
+            aria-label="Toggle navigation menu"
+          >
+            ☰
+          </button>
+          <nav>
+            <ul class="nav-links">
+              <li><a href="index.php">Home</a></li>
+              <li><a href="courses.php">Courses</a></li>
+              <li><a href="admin/dashboard.php">Admin Dashboard</a></li>
+              <li><a href="student/dashboard.php">My Dashboard</a></li>
+              <li><a href="login.php">Login</a></li>
+              <li><a href="register.php">Register</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="test-content">
+      <h1>Responsive Navigation Test</h1>
+      <p>
+        Resize your browser window to test the responsive navigation behavior.
+      </p>
+
+      <h2>Test Instructions:</h2>
+      <ul style="text-align: left; max-width: 600px; margin: 0 auto">
+        <li>
+          <strong>Desktop (>575px):</strong> Navigation should be horizontal
+        </li>
+        <li><strong>Mobile (≤575px):</strong> Hamburger menu should appear</li>
+        <li><strong>Click hamburger:</strong> Menu should expand vertically</li>
+        <li><strong>Click outside:</strong> Menu should close</li>
+        <li><strong>Press Escape:</strong> Menu should close</li>
+        <li><strong>Click link:</strong> Menu should close after navigation</li>
+      </ul>
+
+      <h2>Admin Navigation Test:</h2>
+      <nav class="admin-nav" style="margin: 2rem 0">
+        <div class="container">
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <a href="index.php" class="logo" style="color: white"
+                >📚 CodeTutorials</a
+              >
+              <span style="color: #bdc3c7">|</span>
+              <span style="color: white">Admin Panel</span>
+            </div>
+            <button
+              class="mobile-menu-toggle"
+              aria-expanded="false"
+              aria-label="Toggle navigation menu"
+            >
+              ☰
+            </button>
+          </div>
+          <ul class="admin-nav-links">
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="courses.php">Courses</a></li>
+            <li><a href="videos.php">Videos</a></li>
+            <li><a href="users.php">Users</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <h2>Student Navigation Test:</h2>
+      <nav class="student-nav" style="margin: 2rem 0">
+        <div class="container">
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <a href="index.php" class="logo" style="color: white"
+                >📚 CodeTutorials</a
+              >
+              <span style="color: rgba(255, 255, 255, 0.7)">|</span>
+              <span style="color: white">Student Dashboard</span>
+            </div>
+            <button
+              class="mobile-menu-toggle"
+              aria-expanded="false"
+              aria-label="Toggle navigation menu"
+            >
+              ☰
+            </button>
+          </div>
+          <ul class="student-nav-links">
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="courses.php">Browse Courses</a></li>
+            <li><a href="favorites.php">My Favorites</a></li>
+            <li><a href="profile.php">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <script>
+      // Show current screen size
+      function updateScreenSize() {
+        const width = window.innerWidth;
+        const indicator = document.getElementById("screenSize");
+        let size = "Desktop";
+        if (width <= 575) size = "Mobile (≤575px)";
+        else if (width <= 767) size = "Small (576-767px)";
+        else if (width <= 991) size = "Medium (768-991px)";
+        else if (width <= 1199) size = "Large (992-1199px)";
+        else size = "Extra Large (≥1200px)";
+
+        indicator.textContent = `${width}px - ${size}`;
+      }
+
+      updateScreenSize();
+      window.addEventListener("resize", updateScreenSize);
+    </script>
+  </body>
+</html>
