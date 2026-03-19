@@ -1,0 +1,13 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^api/users$ api/users.php [L]
+RewriteRule ^api/users/(.*)$ api/users.php?id=$1 [L]
+
+RewriteRule ^api/courses$ api/courses.php [L]
+RewriteRule ^api/courses/(.*)$ api/courses.php?id=$1 [L]
+
+RewriteRule ^api/marks$ api/marks.php [L]
+RewriteRule ^api/marks/(.*)$ api/marks.php?id=$1 [L]
