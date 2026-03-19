@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $course_stmt = $db->prepare($course_query);
         $course_stmt->bindParam(':course_id', $course_id);
         $course_stmt->execute();
-        $course = $course_stmt->fetch(PDO::FETCH_ASSOC);
+        $course = $course_stmt->fetch(MYSQLI_ASSOC);
         
         if (!$course) {
             $error_message = "Invalid course selected.";
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $courses_query = "SELECT * FROM courses WHERE is_active = 1 ORDER BY title";
 $courses_stmt = $db->prepare($courses_query);
 $courses_stmt->execute();
-$courses = $courses_stmt->fetchAll(PDO::FETCH_ASSOC);
+$courses = $courses_stmt->fetchAll(MYSQLI_ASSOC);
 
 // Generate CSRF token
 $csrf_token = generateCSRFToken();

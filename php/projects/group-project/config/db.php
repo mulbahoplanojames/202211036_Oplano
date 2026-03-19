@@ -9,7 +9,10 @@ if (!defined('PDO::FETCH_ASSOC')) {
     define('PDO::FETCH_ASSOC', MYSQLI_ASSOC);
 }
 if (!defined('PDO::PARAM_INT')) {
-    define('PDO::PARAM_INT', 1);
+    define('PDO::PARAM_INT', 'i');
+}
+if (!defined('PDO::PARAM_STR')) {
+    define('PDO::PARAM_STR', 's');
 }
 
 // Load environment variables
@@ -70,7 +73,7 @@ class MysqliStatementWrapper {
     }
     
     public function fetch($style = null) {
-        if ($style === null || $style === MYSQLI_ASSOC) {
+        if ($style === null || $style === MYSQLI_ASSOC || $style === 'PDO::FETCH_ASSOC') {
             return $this->stmt->get_result()->fetch_assoc();
         }
         return $this->stmt->get_result()->fetch_assoc();
@@ -85,6 +88,10 @@ class MysqliStatementWrapper {
                 $column[] = $row[0];
             }
             return $column;
+        }
+        // Handle PDO::FETCH_ASSOC case
+        if ($style === MYSQLI_ASSOC || $style === 'PDO::FETCH_ASSOC' || $style === null) {
+            return $this->stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         }
         return $this->stmt->get_result()->fetch_all($style);
     }

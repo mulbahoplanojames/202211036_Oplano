@@ -19,15 +19,16 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         $error_message = "Invalid request. Please try again.";
     } else {
         // Soft delete - set is_active to 0
-        $query = "UPDATE courses SET is_active = 0 WHERE id = :course_id";
+        $query = "UPDATE courses SET is_active = 0 WHERE id = ?";
         $stmt = $db->prepare($query);
-        $stmt->bindParam(':course_id', $course_id);
+        $stmt->bindValue(1, $course_id);
+        $stmt->execute();
         
-        if ($stmt->execute()) {
+        if ($stmt->rowCount() > 0) {
             // Also deactivate associated videos
-            $video_query = "UPDATE videos SET is_active = 0 WHERE course_id = :course_id";
+            $video_query = "UPDATE videos SET is_active = 0 WHERE course_id = ?";
             $video_stmt = $db->prepare($video_query);
-            $video_stmt->bindParam(':course_id', $course_id);
+            $video_stmt->bindValue(1, $course_id);
             $video_stmt->execute();
             
             $success_message = "Course deactivated successfully.";
@@ -37,15 +38,65 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     }
 }
 
+// Handle course activation
+if (isset($_GET['activate']) && is_numeric($_GET['activate'])) {
+    $course_id = (int)$_GET['activate'];
+    
+    // Verify CSRF token
+    if (!verifyCSRFToken($_GET['csrf_token'])) {
+        $error_message = "Invalid request. Please try again.";
+    } else {
+        // Activate - set is_active to 1
+        $query = "UPDATE courses SET is_active = 1 WHERE id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(1, $course_id);
+        $stmt->execute();
+        
+        if ($stmt->rowCount() > 0) {
+            // Also activate associated videos
+            $video_query = "UPDATE videos SET is_active = 1 WHERE course_id = ?";
+            $video_stmt = $db->prepare($video_query);
+            $video_stmt->bindValue(1, $course_id);
+            $video_stmt->execute();
+            
+            $success_message = "Course activated successfully.";
+        } else {
+            $error_message = "Failed to activate course.";
+        }
+    }
+}
+
 // Get all courses with video count
 $query = "SELECT c.*, COUNT(v.id) as video_count 
           FROM courses c 
-          LEFT JOIN videos v ON c.id = v.course_id 
+          LEFT JOIN videos v ON c.id = v.course_id AND v.is_active = 1
           GROUP BY c.id 
           ORDER BY c.created_at DESC";
 $stmt = $db->prepare($query);
 $stmt->execute();
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$courses = $stmt->fetchAll(MYSQLI_ASSOC);
+
+// Test database connection and data
+if (empty($courses)) {
+    // Try a simpler query to check if courses table has data
+    $simple_query = "SELECT * FROM courses LIMIT 1";
+    $simple_stmt = $db->prepare($simple_query);
+    $simple_stmt->execute();
+    $test_course = $simple_stmt->fetch();
+    
+    if (!$test_course) {
+        echo "<div style='background: #f8d7da; color: #721c24; padding: 1rem; margin: 1rem 0; border-radius: 5px;'>";
+        echo "<strong>No courses found in database.</strong><br>";
+        echo "You may need to run the schema.sql file to insert sample data.<br>";
+        echo "<a href='insert_sample_courses.php' class='btn btn-primary' style='margin-top: 0.5rem;'>Insert Sample Courses</a>";
+        echo "</div>";
+    } else {
+        echo "<div style='background: #d4edda; color: #155724; padding: 1rem; margin: 1rem 0; border-radius: 5px;'>";
+        echo "<strong>Debug Info:</strong> Course data exists but query may have issues.<br>";
+        echo "Sample course data: " . htmlspecialchars(print_r($test_course, true));
+        echo "</div>";
+    }
+}
 
 // Generate CSRF token
 $csrf_token = generateCSRFToken();
@@ -290,26 +341,26 @@ $csrf_token = generateCSRFToken();
                         <div class="course-card">
                             <div class="course-header" style="background-image: url('<?= !empty($course['thumbnail_url']) ? htmlspecialchars($course['thumbnail_url']) : '../assets/images/default-course-thumbnail.svg'; ?>')">
                                 <div class="course-header-content">
-                                    <h3 class="course-title"><?= htmlspecialchars($course['title']); ?></h3>
+                                    <h3 class="course-title"><?= htmlspecialchars($course['title'] ?? 'Untitled Course'); ?></h3>
                                     <div class="course-meta">
-                                        <span><?= htmlspecialchars($course['programming_language']); ?></span>
-                                        <span><?= ucfirst($course['difficulty_level']); ?></span>
+                                        <span><?= htmlspecialchars($course['programming_language'] ?? 'Unknown'); ?></span>
+                                        <span><?= ucfirst(htmlspecialchars($course['difficulty_level'] ?? 'beginner')); ?></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="course-body">
-                                <p class="course-description"><?= htmlspecialchars($course['description']); ?></p>
+                                <p class="course-description"><?= htmlspecialchars($course['description'] ?? 'No description available.'); ?></p>
                                 <div class="course-stats">
-                                    <span><?= $course['video_count']; ?> videos</span>
-                                    <span class="status-badge <?= $course['is_active'] ? 'status-active' : 'status-inactive'; ?>">
-                                        <?= $course['is_active'] ? 'Active' : 'Inactive'; ?>
+                                    <span><?= (int)($course['video_count'] ?? 0); ?> videos</span>
+                                    <span class="status-badge <?= ($course['is_active'] ?? 0) ? 'status-active' : 'status-inactive'; ?>">
+                                        <?= ($course['is_active'] ?? 0) ? 'Active' : 'Inactive'; ?>
                                     </span>
                                 </div>
                                 <div class="course-actions">
                                     <a href="edit_course.php?id=<?= $course['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
                                     <a href="videos.php?course=<?= $course['id']; ?>" class="btn btn-secondary btn-sm">Videos</a>
                                     <a href="../course.php?id=<?= $course['id']; ?>" class="btn btn-outline btn-sm" target="_blank">View</a>
-                                    <?php if ($course['is_active']): ?>
+                                    <?php if ($course['is_active'] ?? 0): ?>
                                         <a href="courses.php?delete=<?= $course['id']; ?>&csrf_token=<?= $csrf_token; ?>" 
                                            class="btn btn-danger btn-sm" 
                                            onclick="return confirm('Are you sure you want to deactivate this course?')">Deactivate</a>
