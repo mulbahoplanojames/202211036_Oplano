@@ -1,0 +1,11 @@
+.git
+.gitignore
+README.md
+INSTALLATION.md
+COURSE_FAVORITES_INSTALLATION.md
+YOUTUBE_API_SETUP.md
+.env
+.DS_Store
+node_modules
+vendor
+*.log
