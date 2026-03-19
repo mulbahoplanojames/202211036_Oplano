@@ -1,0 +1,34 @@
+# Prevent directory listing
+Options -Indexes
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Redirect to home page as default
+RewriteRule ^$ index.php [L]
+
+# Handle clean URLs for common pages
+RewriteRule ^login/?$ auth/login.php [L]
+RewriteRule ^register/?$ auth/register.php [L]
+RewriteRule ^logout/?$ auth/logout.php [L]
+RewriteRule ^courses/?$ courses/index.php [L]
+RewriteRule ^dashboard/?$ public/index.php [L]
+
+# Handle admin routes
+RewriteRule ^admin/?$ admin/dashboard.php [L]
+RewriteRule ^admin/courses/?$ admin/courses.php [L]
+RewriteRule ^admin/users/?$ admin/users.php [L]
+
+# Handle user routes
+RewriteRule ^user/?$ user/dashboard.php [L]
+
+# Handle course actions
+RewriteRule ^courses/enroll/([0-9]+)/?$ courses/enroll.php?course_id=$1 [L,QSA]
+RewriteRule ^courses/unenroll/([0-9]+)/?$ courses/unenroll.php?course_id=$1 [L,QSA]
+
+# Set default character encoding
+AddDefaultCharset UTF-8
+
+# PHP settings
+php_flag display_errors Off
+php_value error_reporting E_ALL & ~E_DEPRECATED & ~E_STRICT
