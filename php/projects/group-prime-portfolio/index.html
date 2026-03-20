@@ -47,22 +47,89 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+      <div class="hero-bg">
+        <div class="hero-glow glow-1"></div>
+        <div class="hero-glow glow-2"></div>
+      </div>
       <div class="hero-container">
         <div class="hero-content">
-          <h1 class="hero-title">Welcome to Group Prime</h1>
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Advanced Web Design Project
+          </div>
+          <h1 class="hero-title-wrapper">
+            Welcome to <br />
+            <span class="hero-title text-gradient">Group Prime</span>
+          </h1>
           <p class="hero-description">
             This portfolio is a class project for our Advanced Web Design and
             Development module, showcasing our skills in modern web technologies
             and responsive design principles.
           </p>
           <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            <a href="#projects" class="btn hero-btn-primary">
+              View Projects <i class="fas fa-arrow-right btn-icon"></i>
+            </a>
+            <a href="#contact" class="btn hero-btn-secondary">
+              Get in Touch
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">100%</span>
+              <span class="stat-text">Responsive</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">Modern</span>
+              <span class="stat-text">Tech Stack</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">Clean</span>
+              <span class="stat-text">Code</span>
+            </div>
           </div>
         </div>
-        <div class="hero-image">
-          <div class="hero-graphic"></div>
+        <div class="hero-visual">
+          <div class="code-editor-card">
+            <div class="editor-header">
+              <div class="mac-buttons">
+                <span class="close"></span>
+                <span class="minimize"></span>
+                <span class="maximize"></span>
+              </div>
+              <div class="editor-title">portfolio.js</div>
+            </div>
+            <div class="editor-body">
+              <pre><code><span class="keyword">const</span> <span class="variable">groupPrime</span> <span class="operator">=</span> {
+  <span class="property">passion</span>: <span class="number">100</span>,
+  <span class="property">skills</span>: [<span class="string">'HTML5'</span>, <span class="string">'CSS3'</span>, <span class="string">'JS'</span>],
+  <span class="property">status</span>: <span class="string">'Building web apps'</span>,
+  <span class="method">init</span>() {
+    <span class="keyword">this</span>.<span class="method">launchProject</span>();
+  }
+};
+
+<span class="variable">groupPrime</span>.<span class="method">init</span>();</code></pre>
+            </div>
+          </div>
+          <!-- Floating tech badges -->
+          <div class="tech-badge badge-html">
+            <i class="fab fa-html5"></i>
+          </div>
+          <div class="tech-badge badge-css">
+            <i class="fab fa-css3-alt"></i>
+          </div>
+          <div class="tech-badge badge-js">
+            <i class="fab fa-js"></i>
+          </div>
         </div>
+      </div>
+      <div class="hero-bottom-curve">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 120L1440 120V0C1440 0 1140 120 720 120C300 120 0 0 0 0V120Z" fill="#f9fafb"/>
+        </svg>
       </div>
     </section>
 
@@ -79,11 +146,18 @@
 
     <!-- Team Section -->
     <section id="team" class="team">
+      <div class="team-bg-pattern"></div>
       <div class="container">
-        <h2 class="section-title">Meet Our Team</h2>
-        <p class="section-subtitle">
-          The talented individuals behind Group Prime
-        </p>
+        <div class="team-header">
+          <div class="section-badge">
+            <span class="badge-dot"></span>
+            Our People
+          </div>
+          <h2 class="team-section-title">Meet Our <span class="text-primary">Team</span></h2>
+          <p class="team-section-subtitle">
+            The talented individuals driving innovation behind Group Prime
+          </p>
+        </div>
         <div class="team-grid" id="team-container">
           <!-- Team members will be dynamically loaded here -->
         </div>

@@ -85,19 +85,27 @@ async function renderTeam() {
     .map(
       (member) => `
     <div class="team-card" data-aos="fade-up">
-      <div class="team-avatar">${member.initials}</div>
-      <h3 class="team-name">${member.name}</h3>
-      <p class="team-role">${member.role}</p>
-      <div class="team-social">
-        <a href="${member.github}" target="_blank" class="social-icon">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="${member.linkedin}" target="_blank" class="social-icon">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="${member.twitter}" target="_blank" class="social-icon">
-          <i class="fab fa-twitter"></i>
-        </a>
+      <div class="team-card-inner">
+        <div class="team-card-bg"></div>
+        <div class="team-avatar-wrapper">
+          <div class="team-avatar">${member.initials}</div>
+          <div class="team-status-dot"></div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">${member.name}</h3>
+          <p class="team-role">${member.role}</p>
+        </div>
+        <div class="team-social">
+          <a href="${member.github}" target="_blank" class="social-icon" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="${member.linkedin}" target="_blank" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="${member.twitter}" target="_blank" class="social-icon" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
       </div>
     </div>
   `,
