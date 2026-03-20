@@ -72,6 +72,7 @@ if (isset($_POST['toggle_favorite']) && isLoggedIn()) {
     <meta name="description" content="<?= htmlspecialchars($course['description']); ?>">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/mobile-menu.js" defer></script>
+         <link rel="stylesheet" href="assets/css/saas-sections.css">
     <style>
         .progress-badge {
             position: absolute;
@@ -436,40 +437,55 @@ if (isset($_POST['toggle_favorite']) && isLoggedIn()) {
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
+        <!-- Footer -->
+    <footer class="saas-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About CodeTutorials</h3>
-                    <p>Your gateway to high-quality programming tutorials. We curate the best YouTube content to help you learn programming effectively.</p>
+            <div class="saas-footer-top">
+                <div class="saas-footer-brand">
+                    <a href="index.php" class="saas-footer-logo">📚 CodeTutorials</a>
+                    <p>Your gateway to high-quality programming tutorials. We curate the best YouTube content to help you learn programming effectively and without distraction.</p>
+                    <div class="saas-social-links">
+                        <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                        <a href="#" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <a href="#" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="courses.php">All Courses</a></li>
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Other Courses</h3>
-                    <ul>
-                        <li><a href="course.php?id=1">Python Programming</a></li>
-                        <li><a href="course.php?id=2">Java Development</a></li>
-                        <li><a href="course.php?id=3">JavaScript Web Dev</a></li>
-                        <li><a href="course.php?id=4">PHP Backend</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: info@codetutorials.com</p>
-                    <p>Follow us on social media for updates</p>
+                <div class="saas-footer-links">
+                    <div class="footer-link-group">
+                        <h3>Platform</h3>
+                        <ul>
+                            <li><a href="index.php">Home</a></li>
+                            <li><a href="courses.php">All Courses</a></li>
+                            <li><a href="register.php">Get Started</a></li>
+                            <li><a href="login.php">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h3>Popular Courses</h3>
+                        <ul>
+                            <li><a href="course.php?id=1">Python Programming</a></li>
+                            <li><a href="course.php?id=2">Java Development</a></li>
+                            <li><a href="course.php?id=3">JavaScript Web Dev</a></li>
+                            <li><a href="course.php?id=4">PHP Backend</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h3>Connect</h3>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Support</a></li>
+                            <li><a href="#">Community</a></li>
+                            <li><a href="#">Twitter</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CodeTutorials. All rights reserved. | Curated Programming Tutorials Platform</p>
+            <div class="saas-footer-bottom">
+                <p>&copy; 2024 CodeTutorials. All rights reserved.</p>
+                <div class="saas-footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
