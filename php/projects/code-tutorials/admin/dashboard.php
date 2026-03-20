@@ -133,9 +133,58 @@ $popular_courses = $popular_courses_stmt->fetchAll(MYSQLI_ASSOC);
         }
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-bottom: 3rem;
+        }
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .dashboard-number {
+                font-size: 2rem;
+            }
+            .dashboard-label {
+                font-size: 0.9rem;
+            }
+            .dashboard-card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .action-icon {
+                font-size: 1.5rem;
+            }
+            .action-title {
+                font-size: 0.9rem;
+            }
+            .action-card {
+                padding: 1rem;
+            }
+        }
+        @media (max-width: 768px) and (min-width: 481px) {
+            .dashboard-number {
+                font-size: 2.5rem;
+            }
+            .dashboard-label {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .action-icon {
+                font-size: 1.8rem;
+            }
+            .action-title {
+                font-size: 1rem;
+            }
         }
         .dashboard-card {
             background: white;
@@ -173,9 +222,25 @@ $popular_courses = $popular_courses_stmt->fetchAll(MYSQLI_ASSOC);
         }
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .quick-actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        @media (max-width: 480px) {
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
         }
         .action-card {
             background: linear-gradient(135deg, var(--primary-accent) 0%, var(--primary-medium) 100%);
