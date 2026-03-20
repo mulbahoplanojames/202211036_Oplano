@@ -1,0 +1,31 @@
+services:
+  # Static Site Service
+  - type: web
+    name: group-prime-portfolio
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /api/data.php/projects
+        destination: /api/data.php?endpoint=projects
+      - type: rewrite
+        source: /api/data.php/team
+        destination: /api/data.php?endpoint=team
+      - type: rewrite
+        source: /api/data.php/stats
+        destination: /api/data.php?endpoint=stats
+    envVars:
+      - key: PHP_VERSION
+        value: "8.1"
+
+  # PHP Service (for API endpoints)
+  - type: web
+    name: group-prime-api
+    runtime: docker
+    plan: free
+    buildCommand: ""
+    startCommand: php -S 0.0.0.0:$PORT -t .
+    envVars:
+      - key: PORT
+        value: 10000

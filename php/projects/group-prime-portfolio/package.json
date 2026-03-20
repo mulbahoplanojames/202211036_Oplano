@@ -1,0 +1,37 @@
+{
+  "name": "group-prime-portfolio",
+  "version": "1.0.0",
+  "description": "Modern portfolio web application for Group Prime team",
+  "main": "index.html",
+  "scripts": {
+    "start": "php -S localhost:8000",
+    "dev": "php -S localhost:8000",
+    "build": "echo 'No build step required for static site'",
+    "deploy": "echo 'Ready for deployment'"
+  },
+  "keywords": [
+    "portfolio",
+    "web-development",
+    "php",
+    "javascript",
+    "css",
+    "responsive-design"
+  ],
+  "author": "Group Prime Team",
+  "license": "MIT",
+  "engines": {
+    "php": ">=7.4",
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/group-prime-portfolio.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

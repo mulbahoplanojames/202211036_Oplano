@@ -134,9 +134,51 @@ if ($total_enrolled > 0) {
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-bottom: 3rem;
+        }
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+        }
+        @media (max-width: 768px) and (min-width: 481px) {
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .stat-label {
+                font-size: 0.85rem;
+            }
+        }
+        .additional-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (min-width: 768px) {
+            .additional-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .additional-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
         }
         .stat-card {
             background: white;
@@ -178,8 +220,19 @@ if ($total_enrolled > 0) {
         }
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        @media (max-width: 480px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
         .course-card {
             background: #f8f9fa;
@@ -221,8 +274,19 @@ if ($total_enrolled > 0) {
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        @media (max-width: 480px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
         .video-card {
             background: #f8f9fa;
@@ -361,7 +425,7 @@ if ($total_enrolled > 0) {
         <!-- Additional Video Stats -->
         <div class="dashboard-section">
             <h2 class="section-title">📊 Learning Progress Details</h2>
-            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+            <div class="stats-grid additional-stats">
                 <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white;">
                     <div class="stat-number" style="color: white;"><?= $video_stats['total_watched']; ?></div>
                     <div class="stat-label" style="color: rgba(255,255,255,0.9);">Videos Started</div>
