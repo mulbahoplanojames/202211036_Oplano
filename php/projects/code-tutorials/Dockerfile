@@ -18,7 +18,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     pdo \
     pdo_mysql \
     mysqli \
-    session \
     hash
 
 # Enable Apache modules
