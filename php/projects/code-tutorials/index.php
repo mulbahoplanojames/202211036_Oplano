@@ -60,16 +60,85 @@ $courses = $result->fetch_all(MYSQLI_ASSOC);
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Master Programming with Curated Tutorials</h1>
-            <p style="color: white;">Discover high-quality, hand-picked programming tutorials from YouTube. Learn from the best content creators without the distraction.</p>
-            <?php if (!isLoggedIn()): ?>
-                <div>
-                    <a href="register.php" class="btn btn-outline" style="margin-right: 1rem;">Get Started Free</a>
-                    <a href="courses.php" class="btn btn-primary">Browse Courses</a>
+    <section class="saas-hero">
+        <div class="saas-hero-bg">
+            <div class="saas-glow saas-glow-primary"></div>
+            <div class="saas-glow saas-glow-secondary"></div>
+            <div class="saas-grid"></div>
+        </div>
+        <div class="container saas-hero-container">
+            <div class="saas-hero-content">
+                <div class="saas-badge">
+                    <span class="saas-badge-dot"></span>
+                    <span class="saas-badge-text">New Curated Courses Added Daily</span>
                 </div>
-            <?php endif; ?>
+                <h1 class="saas-title">Master Programming with <span class="text-gradient">Curated Tutorials</span></h1>
+                <p class="saas-subtitle">Discover high-quality, hand-picked programming tutorials from YouTube. Learn from the best content creators without the distraction.</p>
+                <?php if (!isLoggedIn()): ?>
+                    <div class="saas-actions">
+                        <a href="register.php" class="btn saas-btn saas-btn-primary">
+                            Get Started Free
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="courses.php" class="btn saas-btn saas-btn-outline">
+                            Browse Courses
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <div class="saas-social-proof">
+                    <div class="saas-avatars">
+                        <div class="saas-avatar"><img src="https://i.pravatar.cc/100?img=33" alt="User"></div>
+                        <div class="saas-avatar"><img src="https://i.pravatar.cc/100?img=47" alt="User"></div>
+                        <div class="saas-avatar"><img src="https://i.pravatar.cc/100?img=12" alt="User"></div>
+                        <div class="saas-avatar"><img src="https://i.pravatar.cc/100?img=32" alt="User"></div>
+                    </div>
+                    <div class="saas-proof-text">
+                        <div class="saas-stars">★★★★★</div>
+                        <span>Join <strong>10,000+</strong> developers learning today</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="saas-hero-visual">
+                <div class="saas-code-window">
+                    <div class="saas-code-header">
+                        <div class="saas-code-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="saas-code-title">learn_to_code.py</div>
+                    </div>
+                    <div class="saas-code-body">
+                        <pre><code><span class="keyword">def</span> <span class="function">master_programming</span>():
+    <span class="variable">tutorials</span> = <span class="string">"curated"</span>
+    <span class="variable">distractions</span> = <span class="number">0</span>
+    
+    <span class="keyword">if</span> tutorials == <span class="string">"curated"</span>:
+        <span class="keyword">return</span> <span class="string">"Success!"</span>
+        
+<span class="comment"># Output: Success! Built with love.</span></code></pre>
+                    </div>
+                </div>
+                
+                <div class="saas-floating-card saas-float-1">
+                    <div class="saas-icon-wrapper pulse-bg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <div class="saas-card-text">
+                        <strong>Quality Content</strong>
+                        <span>Hand-picked videos</span>
+                    </div>
+                </div>
+                
+                <div class="saas-floating-card saas-float-2">
+                    <div class="saas-icon-wrapper primary-bg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="saas-card-text">
+                        <strong>Zero Distractions</strong>
+                        <span>Focus on learning</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
