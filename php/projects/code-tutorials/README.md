@@ -139,6 +139,7 @@ The database includes:
 
 4. **Access the Application**
    - Open browser to `http://localhost/group-project`
+   - Open browser to `https://codetutorials.onrender.com/index.php`
    - Register as student or login as admin
 
 ### Default Admin Account

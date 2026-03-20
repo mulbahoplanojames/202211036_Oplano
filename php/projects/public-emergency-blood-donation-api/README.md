@@ -15,7 +15,7 @@ https://lifelineapi-93c3.onrender.com/
 ## Base URL
 
 ```
-https://your-domain.com/
+https://lifelineapi-93c3.onrender.com/
 ```
 
 ## Endpoints
@@ -221,8 +221,11 @@ Use the router script for local testing with PHP built-in server:
 php -S localhost:8000 router.php
 
 # Test endpoints
+curl -X GET "https://lifelineapi-93c3.onrender.com/"
+curl -X GET "https://lifelineapi-93c3.onrender.com/"
+
 curl -X GET "http://localhost:8000/api/donors"
-curl -X GET "http://localhost:8000/api/emergency-donors"
+curl -X GET " "https://lifelineapi-93c3.onrender.com/api/emergency-donors"
 ```
 
 #### Production Testing
@@ -232,14 +235,15 @@ Use Postman or curl to test the API endpoints on Apache servers:
 ```bash
 # Get all donors
 curl -X GET "http://localhost/api/donors"
+curl -X GET " "https://lifelineapi-93c3.onrender.com/api/donors"
 
 # Register a new donor
-curl -X POST "http://localhost/api/donors" \
+curl -X POST "https://lifelineapi-93c3.onrender.com/api/donors" \
   -H "Content-Type: application/json" \
   -d '{"name":"Jane Smith","blood_type":"A+","city":"Kigali","phone":"+250788234567"}'
 
 # Get emergency donors
-curl -X GET "http://localhost/api/emergency-donors"
+curl -X GET "https://lifelineapi-93c3.onrender.com/api/emergency-donors"
 ```
 
 ## Error Handling
@@ -328,7 +332,7 @@ fetch("/api/donors", {
 import requests
 
 # Get emergency donors
-response = requests.get('https://your-api.com/api/emergency-donors')
+response = requests.get('https://lifelineapi-93c3.onrender.com/api/emergency-donors')
 donors = response.json()
 print(donors)
 
@@ -339,7 +343,7 @@ donor_data = {
     'city': 'Kigali',
     'phone': '+250788234567'
 }
-response = requests.post('https://your-api.com/api/donors', json=donor_data)
+response = requests.post('https://lifelineapi-93c3.onrender.com/api/donors', json=donor_data)
 print(response.json())
 ```
 
