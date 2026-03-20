@@ -17,8 +17,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     gd \
     pdo \
     pdo_mysql \
-    mysqli \
-    hash
+    mysqli
 
 # Enable Apache modules
 RUN a2enmod rewrite
