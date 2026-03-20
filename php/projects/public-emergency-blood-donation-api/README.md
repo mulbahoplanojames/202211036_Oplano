@@ -6,6 +6,12 @@ A RESTful API for locating blood donors and blood banks during medical emergenci
 
 This API helps hospitals, healthcare institutions, and NGOs quickly find available blood donors in emergency situations. It provides real-time access to donor information including blood type, location, and contact details.
 
+## Links
+
+https://group-primeportfolio.onrender.com
+
+https://lifelineapi-93c3.onrender.com/
+
 ## Base URL
 
 ```
@@ -351,7 +357,7 @@ This project is open source and available under the MIT License.
 
 ## Contact
 
-For support or inquiries, please contact the development team.
+For support or inquiries, please contact the development team `Group Prime`.
 
 ---
 

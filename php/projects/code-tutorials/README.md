@@ -2,6 +2,12 @@
 
 A full-stack web application that curates and recommends high-quality programming tutorials from YouTube, offering a focused and distraction-free learning experience.
 
+## Links
+
+https://group-primeportfolio.onrender.com
+
+https://codetutorials.onrender.com/index.php
+
 ## 🚀 Features
 
 ### Core Features
@@ -252,4 +258,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Built with ❤️ for the programming community**
+**Built with ❤️ for the programming community by `Group Prime`**
