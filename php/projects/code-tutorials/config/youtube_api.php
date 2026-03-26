@@ -9,8 +9,7 @@ class YouTubeAPIConfig {
     private $base_url = 'https://www.googleapis.com/youtube/v3';
     
     public function __construct() {
-        // You need to get a YouTube API key from Google Cloud Console
-        // For now, we'll use a placeholder - replace with your actual API key
+
         $this->api_key = 'AIzaSyAT2RQT186YwqUnyG5IgIOmD4Dfhnjoa_A';
     }
     
@@ -25,7 +24,7 @@ class YouTubeAPIConfig {
     public function isValidAPIKey() {
         return !empty($this->api_key) && 
                $this->api_key !== 'YOUR_YOUTUBE_API_KEY_HERE' &&
-               strlen($this->api_key) > 30; // YouTube API keys are typically 39 characters
+               strlen($this->api_key) > 30; 
     }
 }
 ?>

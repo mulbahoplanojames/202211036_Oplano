@@ -5,15 +5,11 @@
  */
 
 class Database {
-    private $host = "127.0.0.1:3307";
-    private $username = "root";
-    private $password = "newrootpassword";
-    private $db_name = "programming_tutorials";
+    // private $host = "127.0.0.1:3307";
+    // private $username = "root";
+    // private $password = "newrootpassword";
+    // private $db_name = "programming_tutorials";
 
-    //    private $host = "sql302.infinityfree.com";
-    // private $username = "if0_41417661";
-    // private $password = "P6o7nIRRPvW";
-    // private $db_name = "if0_41417661_programming_tutorials";
     private $conn;
 
 
