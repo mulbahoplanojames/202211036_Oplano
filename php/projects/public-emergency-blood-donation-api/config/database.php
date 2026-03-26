@@ -6,12 +6,6 @@ class Database {
     // private $password = "newrootpassword";
     // private $db_name = "blood_donation_db";
 
-
-    private $host = "sql302.infinityfree.com";
-    private $username = "if0_41420494";
-    private $password = "ILC8J9EfxBqu";
-    private $db_name = "if0_41420494_blood_donation_db";
-
     public $conn;
 
     public function getConnection() {

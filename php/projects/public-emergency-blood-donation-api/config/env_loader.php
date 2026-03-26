@@ -12,7 +12,7 @@ function loadEnv($filePath = null) {
         $filePath = __DIR__ . '/../.env';
     }
     
-    // If file doesn't exist, return silently (might be in production)
+    // If file doesn't exist, return silently (this might be in production)
     if (!file_exists($filePath)) {
         return;
     }
